@@ -62,7 +62,7 @@ export const Pika = () =>{
         <>
         <h3 className='pika'>{pokemon.numero}</h3>
         <h3 className='pika'>{pokemon.nombre}</h3>
-        <img src={pokemon.img}/>
+        <img src={pokemon.img} alt='pokemon'/>
         </>
         }
         </div>
