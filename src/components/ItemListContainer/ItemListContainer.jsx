@@ -1,39 +1,49 @@
+import Spinner from 'react-bootstrap/Spinner';
 import React, { useEffect, useState } from 'react';
 import { pedirProductos } from '../../helpers/pedirProductos';
 import { ItemList } from '../ItemList/ItemList';
-import Spinner from 'react-bootstrap/Spinner';
 import './ItemListContainer.css';
+import { useParams } from 'react-router-dom';
 
 export const ItemListContainer = ({greating}) => {
 
-    const [items, setItems] = useState([])
+  const [items, setItems] = useState([])
 
-    const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
+  // const param = useParams()
 
-    useEffect(() =>{
-        setLoading(true)
-        pedirProductos()
-        .then((res) =>{
-        
-        setItems(res)
-        })
-        .catch((error) => console.log(error))
-        .finally(() =>{setLoading(false)})
-    }, [])
+  const {categoryId} = useParams()
 
 
+  useEffect(() =>{
+// iniciamos el efecto montaje, con un loading en "true"
+    setLoading(true)
+    pedirProductos()
+      .then((res) =>{
+        // Imprimos la respuesta y la guardamos en el hook
+        if(categoryId){
+          setItems(res.filter(prod => prod.category === categoryId)  )
+        }else{
+          setItems(res)
+        }
+        // console.log(res)
+      })
+      // Consologueamos errores
+      .catch((error) => console.log(error))
+      .finally(() =>{setLoading(false)})
+  }, [categoryId])
 
 
-    return (
-        <>
-            {
-                loading
-                ?<div className='spinner'><Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-                </Spinner>
-                </div>
-                :<ItemList productos={items}/>
-            }
-        </>
-    )}
+
+
+  return (
+    <>
+    {/* Nuestro componente arranca con el loading en "true" y cuando resulve, imprime en pantalla todo nuestro componente ItemList (donde mapeamos cada uno de los productos) */}
+      {
+        loading
+        ?<div className='spinner'><Spinner/></div>
+        : <ItemList productos={items}/>
+      }
+    </>
+  )}

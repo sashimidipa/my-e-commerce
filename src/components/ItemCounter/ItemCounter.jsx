@@ -1,35 +1,33 @@
-import React, { useState } from 'react';
-import './ItemCounter.css';
-export const ItemCounter = () => {
+import React, {useState} from "react";
+import './ItemCounter.css'
+
+export const ItemCounter = () =>{
+
     const [counter, setCounter] = useState(0)
 
-    const addCount = () => {
-        setCounter(counter + 1);
-    };
-
-    const removeCount = () => {
-        if (counter > 0) {
-            setCounter(counter - 1);}
-    };
-
-    const resetCount = () => {
-        setCounter(0);
-    };
-
+    const sumar = () =>{
+        setCounter( counter +1 )
+    }
+    const restar = () =>{
+        if(counter >0){
+            setCounter(counter-1)
+        }
+    }
+    const resetear = ()=>{
+        setCounter(0)
+    }
 
 
-    return (
+
+    return(
         <>
-            <div className='btn'>
-                <button onClick={removeCount}>➖</button>
-                <h4>Cantidad: {counter}</h4>
-                <button onClick={addCount}>➕</button>
-            </div>
-            <div className='btn'>
-            <button className='butn' onClick={resetCount}>🔁</button>
-            </div>
+        <h4>Cantidad: {counter}</h4>
+        <div>
+            <button onClick={sumar}>➕</button>
+            <button onClick={restar}>➖</button>
+            <button onClick={resetear}>🔄</button>
+        </div>
         </>
     )
 }
-
 
