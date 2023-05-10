@@ -11,25 +11,19 @@ export const ItemListContainer = ({greating}) => {
 
   const [loading, setLoading] = useState(false)
 
-  // const param = useParams()
-
   const {categoryId} = useParams()
 
 
   useEffect(() =>{
-// iniciamos el efecto montaje, con un loading en "true"
     setLoading(true)
     pedirProductos()
       .then((res) =>{
-        // Imprimos la respuesta y la guardamos en el hook
         if(categoryId){
           setItems(res.filter(prod => prod.category === categoryId)  )
         }else{
           setItems(res)
         }
-        // console.log(res)
       })
-      // Consologueamos errores
       .catch((error) => console.log(error))
       .finally(() =>{setLoading(false)})
   }, [categoryId])
@@ -39,7 +33,6 @@ export const ItemListContainer = ({greating}) => {
 
   return (
     <>
-    {/* Nuestro componente arranca con el loading en "true" y cuando resulve, imprime en pantalla todo nuestro componente ItemList (donde mapeamos cada uno de los productos) */}
       {
         loading
         ?<div className='spinner'><Spinner/></div>
